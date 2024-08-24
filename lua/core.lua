@@ -21,7 +21,6 @@ require("lazy").setup({
   spec = {
 	"folke/tokyonight.nvim", opts = {}, priority = 1000, 
 	"nvim-treesitter/nvim-treesitter", opts = {}, run = 'TSUpdate',
-	"windwp/nvim-autopairs", opts = {},
   "hrsh7th/nvim-cmp", opts = {},
   "hrsh7th/cmp-buffer", opts = {},
   "hrsh7th/cmp-path", opts = {},
@@ -36,6 +35,9 @@ require("lazy").setup({
   "romgrk/barbar.nvim", requires = 'nvim-web-devicons',
   "nvim-telescope/telescope.nvim", requires = 'sharkdp/fd', 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons',
   "nvim-lualine/lualine.nvim", requires = 'nvim-tree/nvim-web-devicons',
+  "windwp/nvim-autopairs", event = "InsertEnter", config = true,
+  "nvim-tree/nvim-tree.lua",
+
 },
   install = { colorscheme = { "tokyonight-storm" } },
   checker = { enabled = true },
@@ -186,3 +188,5 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
+
+require("nvim-tree").setup()
