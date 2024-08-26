@@ -37,16 +37,17 @@ require("lazy").setup({
   "nvim-lualine/lualine.nvim", requires = 'nvim-tree/nvim-web-devicons',
   "windwp/nvim-autopairs", event = "InsertEnter", config = true,
   "nvim-tree/nvim-tree.lua",
+  "windwp/nvim-ts-autotag",
 
 },
   install = { colorscheme = { "tokyonight-storm" } },
   checker = { enabled = true },
 })
 
--- Configuração do mason.nvim
+-- mason.nvim 
 require('mason').setup()
 require('mason-lspconfig').setup({
-  ensure_installed = { 'lua_ls', 'pyright', 'bashls','csharp_ls' }, 
+  ensure_installed = { 'lua_ls', 'pyright', 'bashls','csharp_ls', }, 
   automatic_installation = true,
 })
 
@@ -71,22 +72,20 @@ cmp.setup({
     end
   },
   sources = {
-    { name = 'path' },
+
     { name = 'nvim_lsp', keyword_length = 1 },
-    { name = 'buffer', keyword_length = 3 },
     { name = 'luasnip', keyword_length = 2 },
   },
   window = {
-    documentation = cmp.config.window.bordered()
+    documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered(),
   },
   formatting = {
     fields = { 'menu', 'abbr', 'kind' },
     format = function(entry, item)
       local menu_icon = {
-        nvim_lsp = '',
         luasnip = '',
         buffer = '',
-        path = '',
       }
 
       item.menu = menu_icon[entry.source.name]
@@ -189,4 +188,34 @@ require('lualine').setup {
   extensions = {}
 }
 
+-- Ntree
 require("nvim-tree").setup()
+
+-- Nvim-ts
+require('nvim-ts-autotag').setup({
+  opts = {
+    -- Defaults
+    enable_close = true, -- Auto close tags
+    enable_rename = true, -- Auto rename pairs of tags
+    enable_close_on_slash = false -- Auto close on trailing </
+  },
+  -- Also override individual filetype configs, these take priority.
+  -- Empty by default, useful if one of the "opts" global settings
+  -- doesn't work well in a specific filetype
+  per_filetype = {
+    ["html"] = {
+      enable_close = false
+    }
+  }
+})
+
+-- nvim autopairs
+require('nvim-autopairs').setup({
+  disable_filetype = { "TelescopePrompt" , "vim" },
+})
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local cmp = require('cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
