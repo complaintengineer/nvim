@@ -38,7 +38,7 @@ require("lazy").setup({
   "windwp/nvim-autopairs", event = "InsertEnter", config = true,
   "nvim-tree/nvim-tree.lua",
   "windwp/nvim-ts-autotag",
-
+      "ngtuonghy/live-server-nvim", event = "VeryLazy", build = ":LiveServerInstall",
 },
   install = { colorscheme = { "tokyonight-storm" } },
   checker = { enabled = true },
@@ -204,7 +204,7 @@ require('nvim-ts-autotag').setup({
   -- doesn't work well in a specific filetype
   per_filetype = {
     ["html"] = {
-      enable_close = false
+      enable_close = true 
     }
   }
 })
@@ -219,3 +219,13 @@ cmp.event:on(
   'confirm_done',
   cmp_autopairs.on_confirm_done()
 )
+
+require('live-server-nvim').setup {
+    custom = {
+        "--port=8080",
+        "--no-css-inject",
+    },
+ serverPath = vim.fn.stdpath("data") .. "/live-server/", --default
+ open = "folder", -- folder|cwd     --default
+}
+

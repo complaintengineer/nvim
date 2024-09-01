@@ -12,4 +12,6 @@ vim.keymap.set('n', '<C-S-t>', '<Cmd>Telescope buffers<CR>', {silent = false})
 vim.keymap.set('n', '<C-g>', '<Cmd>Telescope git_bcommits<CR>', {silent = false})
 vim.keymap.set('n', '<C-S-g>', '<Cmd>Telescope git_branches<CR>', {silent = false})
 
+-- Live Server
 
+vim.keymap.set('n', '<C-L>', '<Cmd>LiveServerStart<CR>', {silent = true})
